@@ -1,0 +1,38 @@
+<section id="engineering" class="section-padding">
+	<div class="container">
+		<h2>{{sections.engineering.title}}</h2>
+		{{#if sections.engineering.intro}}<p class="section-intro">{{sections.engineering.intro}}</p>{{/if}}
+
+		{{#each projects}}
+		<div class="project-card">
+			<div class="project-header">
+				<h3>{{this.title}}</h3>
+				<div class="project-links">
+				{{#if this.link}}
+				<a href="{{this.link}}" target="_blank" rel="noopener noreferrer" aria-label="View {{this.title}}">
+					{{{feather (getLinkIcon this.link) width="20" height="20"}}}
+				</a>
+				{{/if}}
+				</div>
+			</div>
+
+			<div class="project-tech">
+				{{#each this.tags}}
+				<span class="tech-item">{{this}}</span>
+				{{#unless @last}} &bull; {{/unless}}
+				{{/each}}
+			</div>
+
+			<div class="project-desc">
+				{{this.desc}}
+				<br><br>
+				{{this.details}}
+			</div>
+
+			{{#if this.hasCode}}
+			<div tabindex="0" aria-label="Code snippet for {{this.title}}" class="code-block">{{{highlight this.codeSnippet this.lang}}}</div>
+			{{/if}}
+		</div>
+		{{/each}}
+	</div>
+</section>

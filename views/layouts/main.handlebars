@@ -1,0 +1,72 @@
+<!--
+	hii :D
+	what ya doing here?
+-->
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{{meta.title}}</title>
+	<meta name="description" content="{{meta.desc}}">
+
+	<!-- OpenGraph / Facebook -->
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="{{meta.siteUrl}}">
+	<meta property="og:title" content="{{meta.title}}">
+	<meta property="og:description" content="{{meta.desc}}">
+	<meta property="og:image" content="{{meta.ogImage}}">
+
+	<!-- Twitter -->
+	<meta property="twitter:card" content="summary_large_image">
+	<meta property="twitter:url" content="{{meta.siteUrl}}">
+	<meta property="twitter:title" content="{{meta.title}}">
+	<meta property="twitter:description" content="{{meta.desc}}">
+	<meta property="twitter:image" content="{{meta.ogImage}}">
+
+	<!-- theme color for browser bars -->
+	<meta name="theme-color" content="#ff2e2e">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' stroke='%23ff2e2e' stroke-width='4' fill='black'/><text y='50%' x='50%' dominant-baseline='central' text-anchor='middle' font-family='sans-serif' font-weight='900' font-size='45' fill='%23ff2e2e'>KAS</text></svg>">
+</head>
+
+<body>
+	<a href="#main-content" class="skip-link mono">Skip to content</a>
+	<nav aria-label="Main Navigation">
+		<div class="container nav-inner">
+			<div class="logo mono">
+				<span class="accent">&lt;</span>
+				KAS
+				<span class="accent">/&gt;</span>
+			</div>
+			<div class="nav-links mono">
+				{{#each nav}}
+				<a href="{{this.link}}">{{this.label}}</a>
+				{{/each}}
+			</div>
+		</div>
+	</nav>
+
+	<main id="main-content">
+	{{{body}}}
+	</main>
+
+	<footer class="mono">
+	{{{footer.copyright}}}
+	</footer>
+
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "Person",
+		"name": "KAS",
+		"url": "{{meta.siteUrl}}",
+		"jobTitle": "Full Stack Developer & Security Researcher",
+		"sameAs": [
+			"{{meta.github}}"
+		]
+	}
+	</script>
+</body>
+</html>

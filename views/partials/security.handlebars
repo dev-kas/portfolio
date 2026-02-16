@@ -1,0 +1,31 @@
+<section id="security" class="section-padding">
+	<div class="container">
+		<h2>{{sections.security.title}}</h2>
+		{{#if sections.security.intro}}<p class="section-intro">{{sections.security.intro}}</p>{{/if}}
+
+		<div class="security-grid">
+			{{#each security}}
+			<div class="report-card {{this.severity}}">
+				<div class="report-meta-row">
+					<span class="report-tags">
+						{{#each this.tags}}
+						#{{this}}
+						{{/each}}
+					</span>
+					<span class="severity-badge {{this.severity}}">
+						{{this.severityLabel}}
+					</span>
+				</div>
+
+				<h3 class="report-title">{{this.title}}</h3>
+				<p class="report-impact">{{this.desc}}</p>
+
+				{{#if this.poc}}
+				<div class="code-block small">{{{highlight this.poc this.lang}}}</div>
+				{{/if}}
+			</div>
+			{{/each}}
+		</div>
+	</div>
+</section>
+

@@ -1,0 +1,18 @@
+<section id="about" class="section-padding">
+	<div class="container">
+		<h2>{{sections.about.title}}</h2>
+        {{#if sections.about.intro}}<p class="section-intro">{{sections.about.intro}}</p>{{/if}}
+		<div class="skills-grid">
+		{{#each skills}}
+		<div class="skill-category">
+			<h3>{{this.category}}</h3>
+			<div class="skill-tags">
+				{{#each this.items}}
+				<span class="tag">{{this}}</span>
+				{{/each}}
+			</div>
+		</div>
+		{{/each}}
+		</div>
+	</div>
+</section>

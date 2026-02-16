@@ -1,0 +1,35 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "description": "portfolio",
+  "keywords": [
+    "portfolio",
+    "kas",
+    "dev"
+  ],
+  "homepage": "https://github.com/dev-kas/portfolio#readme",
+  "bugs": {
+    "url": "https://github.com/dev-kas/portfolio/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dev-kas/portfolio.git"
+  },
+  "license": "ISC",
+  "author": "dev-kas",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "test": "node ."
+  },
+  "dependencies": {
+    "axios": "^1.13.5",
+    "cheerio": "^1.2.0",
+    "express": "^5.2.1",
+    "express-handlebars": "^8.0.6",
+    "feather-icons": "^4.29.2",
+    "helmet": "^8.1.0",
+    "highlight.js": "^11.11.1",
+    "zod": "^4.3.6"
+  }
+}
