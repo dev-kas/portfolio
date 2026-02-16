@@ -101,8 +101,8 @@ const rawData = {
     github: "https://github.com/dev-kas",
     discord: "kas_dev",
     email: "kas@creonixai.com",
-    siteUrl: "https://dev-kas.github.io",
-    ogImage: "https://dev-kas.github.io/og-image.png",
+    siteUrl: "https://kas.glitchiethedev.com",
+    siteUrl: "https://kas.glitchiethedev.com/og-image.png",
   },
   nav: [
     { label: "01. About", link: "/#about" },
