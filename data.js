@@ -24,7 +24,7 @@ const MetaSchema = z.object({
   desc: z.string(),
   github: z.string().url(),
   discord: z.string(),
-  email: z.string().email(),
+  // email: z.string().email(),
   siteUrl: z.string().url(),
   ogImage: z.string().url(),
 });
@@ -100,7 +100,6 @@ const rawData = {
     desc: "Systems Engineer building scalable architectures and breaking them.",
     github: "https://github.com/dev-kas",
     discord: "kas_dev",
-    email: "kas@creonixai.com",
     siteUrl: "https://kas.glitchiethedev.com",
     ogImage: "https://kas.glitchiethedev.com/og-image.png",
   },
@@ -544,6 +543,40 @@ async function regenerate(entry, path) {
   } finally {
     entry.isRegenerating = false;
   }
+}`,
+    },
+    {
+      title: "Auditor",
+      tags: ["TypeScript", "SAST", "Static Analysis", "AST", "Security Tools"],
+      desc: "A simple Static Application Security Testing (SAST) engine designed to detect Node.js vulnerabilities via taint analysis.",
+      details:
+        "Built a custom static analysis engine from scratch using Acorn for AST generation. The core utilizes a Taint Analysis algorithm to track untrusted user input (sources) as it flows through the application scope to reach dangerous functions (sinks) like 'eval', 'exec', or SQL queries. It features a modular YAML-based rule system covering OWASP Top 10 vulnerabilities and outputs industry-standard SARIF reports for seamless CI/CD integration.",
+      link: "https://github.com/dev-kas/auditor",
+      hasCode: true,
+      lang: "typescript",
+      codeSnippet: `// the core logic: detecting if 'tainted' user input reaches a sensitive 'sink'
+private checkSink(node: any, scope: any) {
+  const fqn = this.getFQN(node.callee, scope);
+
+  Object.values(this.ctx.rules).forEach((rule: any) => {
+    rule.taint_flow.sink_requirements.forEach((req: any) => {
+      if (req.fqn !== fqn) return;
+
+      const arg = node.arguments[req.arg_index];
+      const foundTaints = this.evaluateExpression(arg, scope);
+
+      // check if the argument passed to the function carries a forbidden tag (eg. "http_input")
+      const violation = req.forbidden_tags.find((tag: string) => foundTaints.has(tag));
+
+      if (violation) {
+        this.findings.push({
+          ruleId: rule.id,
+          severity: rule.severity,
+          message: \`Untrusted data (tagged: \${violation}) reached sensitive sink: \${fqn}\`
+        });
+      }
+    });
+  });
 }`,
     },
   ],
