@@ -1,6 +1,6 @@
 const { z } = require("zod");
 
-// --- Schemas ---
+// schemas
 
 const NavItemSchema = z.object({
   label: z.string(),
@@ -92,7 +92,7 @@ const PortfolioSchema = z.object({
   error404: Page404Schema,
 });
 
-// --- Data ---
+// data
 
 const rawData = {
   meta: {
@@ -579,6 +579,31 @@ private checkSink(node: any, scope: any) {
   });
 }`,
     },
+    {
+      title: "Buildfile",
+      tags: ["TypeScript", "DSL", "DevOps", "Interpreter", "Build Tool"],
+      desc: "A cross-platform build automation tool featuring a custom DSL, dependency graph resolution, and architecture-aware binary mapping.",
+      details:
+        "Designed to be a cross-platform replacement for Makefiles in polyglot environments, this tool features a hand-written recursive descent parser and a tree-walking interpreter. Its core innovation is the 'tool' primitive, which automatically resolves binary paths based on the host OS and CPU architecture (e.g., mapping 'python' to 'py.exe' on Windows vs 'python3' on Linux). The execution engine uses a Directed Acyclic Graph (DAG) to resolve task dependencies and includes a dedicated context specification to allow LLMs to write valid build scripts.",
+      link: "https://github.com/dev-kas/buildfile",
+      hasCode: true,
+      lang: "javascript",
+      codeSnippet: `// solving cross-platform binary resolution
+tool python {
+    windows: "py.exe"
+    unix:    "python3"
+    [linux, arm64]: "python3-arm" 
+}
+
+task test {
+    // automatically executes the correct binary for the current OS/arch
+    python("test_suite.py")
+}
+
+task deploy depends test {
+    echo("deploying to production...")
+}`,
+    },
   ],
   security: [
     {
@@ -671,6 +696,8 @@ private checkSink(node: any, scope: any) {
     buttonText: "Return to Mainframe",
   },
 };
+
+// validation
 
 try {
   const validatedData = PortfolioSchema.parse(rawData);
