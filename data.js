@@ -202,11 +202,7 @@ const rawData = {
       codeSnippet: `class SystemsEngine {
   public version = "4.0.0"
   private internal_id = 999
-
-  public constructor(id) {
-    internal_id = id
-  }
-
+  public constructor(id) { internal_id = id }
   public boot() {
     if (internal_id < 0) {
       return "Error: Invalid ID"
@@ -273,6 +269,41 @@ function main(): number {
   printf("Result: %d\\n", result);
   
   return 0;
+}`,
+    },
+    {
+      title: "sbc",
+      tags: ["JavaScript", "Compiler", "AST", "Preprocessor", "Scratch"],
+      desc: "A custom multi-stage compiler and build system that compiles a high-level, text-based programming language into Scratch 3.0 compatible .sb3 archives.",
+      details:
+        "Engineered a full six-stage pipeline (Preprocessor, Lexer, Parser, Semantic Analyzer, Code Generator, and ZIP/Asset Packager) from scratch in JavaScript. The compiler features a C-style preprocessor supporting recursive file inclusions, macro expansions, and conditional compile-guards. It resolves lexical scoping, translates 0-indexed array structures to Scratch's 1-based list primitives, and maps custom functions (supporting warp run-without-refresh optimization) into structured, connected block nodes.",
+      link: "https://github.com/dev-kas/sbc",
+      hasCode: true,
+      lang: "cpp",
+      codeSnippet: `#define INITIAL_SPEED 5
+sprite Player {
+  #include "player_utils.sbc"
+  global score = 0;
+  global inventory = [];
+
+  func warp add_to_inventory(item) {
+    inventory.add(item);
+    score = score + 10;
+  }
+
+  whenFlagClicked() {
+    local speed = INITIAL_SPEED;
+    goToXY(0, 0);
+    greet(username); // defined in player_utils.sbc
+
+    repeat until (score >= 100) {
+      moveSteps(speed);
+      
+      if (touchingObject("Apple")) {
+        add_to_inventory("Apple");
+      }
+    }
+  }
 }`,
     },
     {
