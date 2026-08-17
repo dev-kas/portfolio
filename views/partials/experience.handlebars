@@ -1,0 +1,57 @@
+<section id="experience" class="section-padding">
+    <div class="container">
+        <h2>{{sections.experience.title}}</h2>
+        {{#if sections.experience.intro}}<p class="section-intro">{{sections.experience.intro}}</p>{{/if}}
+
+        <div class="experience-list">
+            {{#each experience}}
+            <div class="project-card experience-card">
+                <div class="project-header">
+                    <div>
+                        <h3>{{this.role}}</h3>
+                        <div class="experience-company mono">
+                            {{#if this.companyUrl}}
+                            <a href="{{this.companyUrl}}" target="_blank" rel="noopener noreferrer" class="accent hover-line">
+                                @ {{this.company}}
+                            </a>
+                            {{else}}
+                            <span class="accent">@ {{this.company}}</span>
+                            {{/if}}
+                            {{#if this.location}}
+                            <span class="experience-location">&bull; {{this.location}}</span>
+                            {{/if}}
+                        </div>
+                    </div>
+
+                    <div class="project-links mono">
+                        <span class="experience-period">{{this.period}}</span>
+                    </div>
+                </div>
+
+                {{#if this.tags}}
+                <div class="project-tech">
+                    {{#each this.tags}}
+                    <span class="tech-item">{{this}}</span>
+                    {{#unless @last}} &bull; {{/unless}}
+                    {{/each}}
+                </div>
+                {{/if}}
+
+                {{#if this.desc}}
+                <div class="project-desc">
+                    {{this.desc}}
+                </div>
+                {{/if}}
+
+                {{#if this.highlights}}
+                <ul class="experience-highlights">
+                    {{#each this.highlights}}
+                    <li>{{this}}</li>
+                    {{/each}}
+                </ul>
+                {{/if}}
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</section>

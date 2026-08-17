@@ -72,17 +72,31 @@ const ContactSchema = z.object({
   cssClass: z.string().optional(),
 });
 
+const ExperienceItemSchema = z.object({
+  role: z.string(),
+  company: z.string(),
+  companyUrl: z.string().url().nullable().optional(),
+  location: z.string().optional(),
+  period: z.string(),
+  current: z.boolean().default(false),
+  desc: z.string().optional(),
+  highlights: z.array(z.string()),
+  tags: z.array(z.string()),
+});
+
 const PortfolioSchema = z.object({
   meta: MetaSchema,
   nav: z.array(NavItemSchema),
   hero: HeroSchema,
   sections: z.object({
     about: SectionHeaderSchema,
+    experience: SectionHeaderSchema,
     engineering: SectionHeaderSchema,
     security: SectionHeaderSchema,
     contact: SectionHeaderSchema,
   }),
   skills: z.array(SkillCategorySchema),
+  experience: z.array(ExperienceItemSchema),
   projects: z.array(ProjectSchema),
   security: z.array(SecuritySchema),
   contact: z.array(ContactSchema),
@@ -105,9 +119,10 @@ const rawData = {
   },
   nav: [
     { label: "01. About", link: "/#about" },
-    { label: "02. Engineering", link: "/#engineering" },
-    { label: "03. Security", link: "/#security" },
-    { label: "04. Contact", link: "/#contact" },
+    { label: "02. Experience", link: "/#experience" },
+    { label: "03. Engineering", link: "/#engineering" },
+    { label: "04. Security", link: "/#security" },
+    { label: "05. Contact", link: "/#contact" },
   ],
   hero: {
     tagline: "Hi, call me KAS.",
@@ -123,19 +138,23 @@ const rawData = {
       title: "01. The Toolbox",
       intro: "",
     },
+    experience: {
+      title: "02. Experience",
+      intro: "",
+    },
     engineering: {
-      title: "02. Engineering",
+      title: "03. Engineering",
       intro: "",
     },
     security: {
-      title: "03. Security Research",
+      title: "04. Security Research",
       intro:
         "I believe you can't build secure systems unless you know how to break them.",
     },
     contact: {
-      title: "04. Initialize Handshake",
+      title: "05. Initialize Handshake",
       intro:
-        "I am currently open to Full-Stack and Security Engineering roles. If you have a system that needs building—or testing—ping me.",
+        "I am currently open to Full-Stack and Security Engineering roles. If you have a system that needs building or testing, ping me.",
     },
   },
   skills: [
@@ -187,6 +206,22 @@ const rawData = {
         "Linux Internals",
         "VNC & Network Protocols",
       ],
+    },
+  ],
+  experience: [
+    {
+      role: "Developer",
+      company: "Jailbreak Changelogs LLC",
+      companyUrl: "https://jailbreakchangelogs.com",
+      location: "Remote",
+      period: "Feb 2026 — Present",
+      current: true,
+      desc: "Joined after discovering critical vulnerabilities; promoted from Website Tester to Developer after delivering core tooling and runtime optimizations.",
+      highlights: [
+        "Audited web application infrastructure, discovering and mitigating multiple medium/critical vulnerabilities.",
+        "Redesigned, implemented, and wired the live backend integration for the JBCL Support Roblox game.",
+      ],
+      tags: ["TypeScript", "Luau", "Python", "Full-Stack", "Next.js"],
     },
   ],
   projects: [
